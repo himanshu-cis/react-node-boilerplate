@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
+import { routes } from './route'
+import { BrowserRouter as Router } from 'react-router-dom'
+import ResolveLayout from './layouts/index.layout';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App({users}) {
+  return <Router>
+    {routes.map((route, path) => <ResolveLayout route={route} path={path} users={users} />)}
+  </Router>
 }
 
-export default App;
+function mapStateToProps(state) {
+  const { users } = state;
+  return {
+    users
+  };
+}
+
+export default connect(mapStateToProps)(App);; 
